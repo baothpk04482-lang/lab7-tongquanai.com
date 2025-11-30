@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thái Hoàng Bảo - AI Developer Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        aiBlue: {
+                            900: '#0a192f', // Dark deep blue background
+                            800: '#112240', // Card background
+                            500: '#3b82f6', // Primary blue
+                            400: '#60a5fa', // Lighter blue
+                        },
+                        aiSilver: {
+                            100: '#e2e8f0', // Text light
+                            300: '#cbd5e1', // Text dim
+                            500: '#94a3b8', // Borders
+                            glow: '#e6f1ff',
+                        }
+                    },
+                    fontFamily: {
+                        'tech': ['Orbitron', 'sans-serif'],
+                        'body': ['Roboto', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                        'pulse-glow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a192f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+        
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(17, 34, 64, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Typing cursor */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(90deg, #60a5fa, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Section transition */
+        .section-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .section-content.active {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-aiBlue-900 text-aiSilver-300 font-body leading-relaxed overflow-x-hidden relative">
+
+    <!-- Background Particles (Simulated with CSS) -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute top-10 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse-glow"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse-glow" style="animation-delay: 1s;"></div>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="fixed w-full top-0 z-50 glass shadow-lg transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="text-2xl font-tech font-bold text-aiSilver-100 tracking-wider hover:text-blue-400 cursor-pointer" onclick="showSection('home')">
+                <i class="fa-solid fa-microchip mr-2 text-blue-500"></i>THB<span class="text-blue-500">.AI</span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" onclick="showSection('home')" class="nav-link text-aiSilver-100 hover:text-blue-400 transition font-medium relative group">
+                    Trang Chủ
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#about" onclick="showSection('about')" class="nav-link text-aiSilver-300 hover:text-blue-400 transition font-medium relative group">
+                    Về Tôi
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#projects" onclick="showSection('projects')" class="nav-link text-aiSilver-300 hover:text-blue-400 transition font-medium relative group">
+                    Dự Án
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#services" onclick="showSection('services')" class="nav-link text-aiSilver-300 hover:text-blue-400 transition font-medium relative group">
+                    Dịch Vụ
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#blog" onclick="showSection('blog')" class="nav-link text-aiSilver-300 hover:text-blue-400 transition font-medium relative group">
+                    Blog
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all group-hover:w-full"></span>
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-aiSilver-100 focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-aiBlue-800 border-t border-gray-700 absolute w-full left-0">
+            <a href="#home" onclick="mobileNavClick('home')" class="block py-3 px-6 text-aiSilver-300 hover:bg-aiBlue-900 hover:text-blue-400">Trang Chủ</a>
+            <a href="#about" onclick="mobileNavClick('about')" class="block py-3 px-6 text-aiSilver-300 hover:bg-aiBlue-900 hover:text-blue-400">Về Tôi</a>
+            <a href="#projects" onclick="mobileNavClick('projects')" class="block py-3 px-6 text-aiSilver-300 hover:bg-aiBlue-900 hover:text-blue-400">Dự Án</a>
+            <a href="#services" onclick="mobileNavClick('services')" class="block py-3 px-6 text-aiSilver-300 hover:bg-aiBlue-900 hover:text-blue-400">Dịch Vụ</a>
+            <a href="#blog" onclick="mobileNavClick('blog')" class="block py-3 px-6 text-aiSilver-300 hover:bg-aiBlue-900 hover:text-blue-400">Blog</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="container mx-auto px-6 pt-28 pb-12 relative z-10 min-h-screen flex flex-col justify-center">
+
+        <!-- 1. HOME SECTION -->
+        <section id="home" class="section-content active">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <p class="text-blue-400 font-tech mb-4">Xin chào, tên tôi là</p>
+                    <h1 class="text-5xl md:text-7xl font-bold text-aiSilver-100 mb-4">
+                        Thái Hoàng Bảo
+                    </h1>
+                    <h2 class="text-3xl md:text-5xl font-bold text-slate-400 mb-6">
+                        <span id="typing-text" class="typing-cursor text-gradient"></span>
+                    </h2>
+                    <p class="text-lg text-aiSilver-300 max-w-lg mb-8">
+                        Mã sinh viên: <span class="text-blue-400 font-mono bg-blue-900/50 px-2 py-1 rounded">pk04482</span>. 
+                        Tôi chuyên về xây dựng các giải pháp Trí tuệ nhân tạo (AI) và Machine Learning để giải quyết các vấn đề thực tế.
+                    </p>
+                    <div class="flex space-x-4">
+                        <button onclick="showSection('projects')" class="px-8 py-3 bg-transparent border-2 border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white rounded font-tech transition duration-300">
+                            Xem Dự Án
+                        </button>
+                        <button onclick="showSection('about')" class="px-8 py-3 bg-blue-600 text-white hover:bg-blue-700 rounded font-tech transition duration-300 shadow-lg shadow-blue-500/30">
+                            Về Tôi
+                        </button>
+                    </div>
+                </div>
+                <!-- Abstract AI Image Visualization -->
+                <div class="md:w-1/2 flex justify-center relative">
+                    <div class="w-72 h-72 md:w-96 md:h-96 relative">
+                        <div class="absolute inset-0 border-4 border-blue-500/20 rounded-full animate-spin-slow"></div>
+                        <div class="absolute inset-4 border-4 border-dashed border-cyan-400/30 rounded-full animate-spin-slow" style="animation-direction: reverse;"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fa-solid fa-brain text-9xl text-gradient opacity-80 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]"></i>
+                        </div>
+                        <!-- Decorative floating icons -->
+                        <div class="absolute top-0 right-10 bg-aiBlue-800 p-3 rounded-lg border border-blue-500/30 shadow-lg animate-bounce">
+                            <i class="fa-brands fa-python text-2xl text-yellow-400"></i>
+                        </div>
+                        <div class="absolute bottom-10 left-0 bg-aiBlue-800 p-3 rounded-lg border border-blue-500/30 shadow-lg animate-bounce" style="animation-delay: 1.5s;">
+                            <i class="fa-solid fa-database text-2xl text-green-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ABOUT ME SECTION -->
+        <section id="about" class="section-content">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-aiSilver-100 mb-8 flex items-center">
+                    <span class="text-blue-400 mr-2">01.</span> Về Tôi
+                    <span class="ml-4 h-px bg-gray-700 flex-grow max-w-xs"></span>
+                </h2>
+                <div class="grid md:grid-cols-3 gap-10">
+                    <div class="md:col-span-2 text-aiSilver-300 text-lg">
+                        <p class="mb-4">
+                            Xin chào! Tôi là <strong class="text-blue-400">Thái Hoàng Bảo</strong>, mã sinh viên <strong class="text-blue-400">pk04482</strong>. 
+                            Hiện tại tôi đang theo học chuyên ngành <strong class="text-white">Lập trình AI (Trí tuệ nhân tạo)</strong>.
+                        </p>
+                        <p class="mb-4">
+                            Niềm đam mê của tôi nằm ở giao điểm giữa dữ liệu và thuật toán. Tôi thích việc huấn luyện máy tính để chúng có thể "hiểu" và hỗ trợ con người. 
+                            Mục tiêu của tôi là trở thành một kỹ sư AI chuyên nghiệp, tạo ra các sản phẩm thông minh.
+                        </p>
+                        <p class="mb-6">Dưới đây là một số công nghệ tôi đã làm việc gần đây:</p>
+                        
+                        <ul class="grid grid-cols-2 gap-2 font-mono text-sm">
+                            <li class="flex items-center"><i class="fa-solid fa-caret-right text-blue-400 mr-2"></i> Python (TensorFlow, PyTorch)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-caret-right text-blue-400 mr-2"></i> Machine Learning</li>
+                            <li class="flex items-center"><i class="fa-solid fa-caret-right text-blue-400 mr-2"></i> HTML & CSS & JavaScript</li>
+                            <li class="flex items-center"><i class="fa-solid fa-caret-right text-blue-400 mr-2"></i> Data Analysis (Pandas)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-caret-right text-blue-400 mr-2"></i> Computer Vision</li>
+                            <li class="flex items-center"><i class="fa-solid fa-caret-right text-blue-400 mr-2"></i> NLP (Xử lý ngôn ngữ)</li>
+                        </ul>
+                    </div>
+                    <!-- Profile Card -->
+                    <div class="md:col-span-1">
+                        <div class="relative group">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                            <div class="relative bg-aiBlue-800 border border-gray-700 rounded-lg p-6 flex flex-col items-center">
+                                <div class="w-32 h-32 bg-gray-600 rounded-full mb-4 flex items-center justify-center overflow-hidden border-2 border-blue-400">
+                                    <i class="fa-solid fa-user text-5xl text-gray-300"></i>
+                                    <!-- Thay thế thẻ i bằng thẻ img nếu có ảnh thật: <img src="url_anh" ...> -->
+                                </div>
+                                <h3 class="text-xl font-bold text-white">Thái Hoàng Bảo</h3>
+                                <p class="text-blue-400 font-mono text-sm mb-4">pk04482</p>
+                                <div class="flex space-x-3">
+                                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-github text-xl"></i></a>
+                                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-facebook text-xl"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PROJECTS SECTION -->
+        <section id="projects" class="section-content">
+            <h2 class="text-4xl font-bold text-aiSilver-100 mb-10 flex items-center justify-center">
+                <span class="text-blue-400 mr-2">02.</span> Dự Án / Hồ Sơ Năng Lực
+            </h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Project 1 -->
+                <div class="group relative bg-aiBlue-800 rounded-xl overflow-hidden hover:-translate-y-2 transition-transform duration-300 shadow-xl border border-gray-700 hover:border-blue-500">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <i class="fa-regular fa-folder text-4xl text-blue-500"></i>
+                            <div class="flex space-x-3 text-gray-400">
+                                <a href="#" class="hover:text-blue-400"><i class="fa-brands fa-github text-lg"></i></a>
+                                <a href="#" class="hover:text-blue-400"><i class="fa-solid fa-arrow-up-right-from-square text-lg"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-aiSilver-100 mb-2 group-hover:text-blue-400 transition">Nhận diện khuôn mặt AI</h3>
+                        <p class="text-aiSilver-300 text-sm mb-4">
+                            Hệ thống điểm danh tự động sử dụng Computer Vision và OpenCV. Có khả năng nhận diện chính xác 98% trong điều kiện ánh sáng yếu.
+                        </p>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono text-blue-300 mt-auto">
+                            <span>Python</span>
+                            <span>OpenCV</span>
+                            <span>Deep Learning</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group relative bg-aiBlue-800 rounded-xl overflow-hidden hover:-translate-y-2 transition-transform duration-300 shadow-xl border border-gray-700 hover:border-blue-500">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <i class="fa-solid fa-robot text-4xl text-blue-500"></i>
+                            <div class="flex space-x-3 text-gray-400">
+                                <a href="#" class="hover:text-blue-400"><i class="fa-brands fa-github text-lg"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-aiSilver-100 mb-2 group-hover:text-blue-400 transition">Chatbot Tư Vấn Tuyển Sinh</h3>
+                        <p class="text-aiSilver-300 text-sm mb-4">
+                            Chatbot tích hợp mô hình xử lý ngôn ngữ tự nhiên (NLP) để trả lời thắc mắc của sinh viên. Huấn luyện trên bộ dữ liệu trường học.
+                        </p>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono text-blue-300 mt-auto">
+                            <span>NLP</span>
+                            <span>TensorFlow</span>
+                            <span>Flask API</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="group relative bg-aiBlue-800 rounded-xl overflow-hidden hover:-translate-y-2 transition-transform duration-300 shadow-xl border border-gray-700 hover:border-blue-500">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <i class="fa-solid fa-chart-line text-4xl text-blue-500"></i>
+                            <div class="flex space-x-3 text-gray-400">
+                                <a href="#" class="hover:text-blue-400"><i class="fa-brands fa-github text-lg"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-aiSilver-100 mb-2 group-hover:text-blue-400 transition">Dự đoán giá nhà ở</h3>
+                        <p class="text-aiSilver-300 text-sm mb-4">
+                            Phân tích dữ liệu lớn và áp dụng thuật toán Regression để dự đoán giá bất động sản dựa trên vị trí và tiện ích.
+                        </p>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono text-blue-300 mt-auto">
+                            <span>Pandas</span>
+                            <span>Scikit-Learn</span>
+                            <span>Matplotlib</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. SERVICES SECTION -->
+        <section id="services" class="section-content">
+            <h2 class="text-4xl font-bold text-aiSilver-100 mb-10 flex items-center">
+                <span class="text-blue-400 mr-2">03.</span> Dịch Vụ
+                <span class="ml-4 h-px bg-gray-700 flex-grow max-w-xs"></span>
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="p-6 border border-gray-700 rounded-lg hover:bg-aiBlue-800 transition duration-300">
+                    <div class="w-12 h-12 bg-blue-900/50 rounded flex items-center justify-center text-blue-400 mb-4">
+                        <i class="fa-solid fa-brain text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Phát triển Mô hình AI</h3>
+                    <p class="text-gray-400">Xây dựng và huấn luyện các mô hình học máy (Machine Learning) tùy chỉnh cho doanh nghiệp, từ phân loại ảnh đến dự báo dữ liệu.</p>
+                </div>
+
+                <div class="p-6 border border-gray-700 rounded-lg hover:bg-aiBlue-800 transition duration-300">
+                    <div class="w-12 h-12 bg-blue-900/50 rounded flex items-center justify-center text-blue-400 mb-4">
+                        <i class="fa-solid fa-magnifying-glass-chart text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Phân Tích Dữ Liệu</h3>
+                    <p class="text-gray-400">Xử lý, làm sạch và trực quan hóa dữ liệu thô thành các báo cáo có ý nghĩa (Data Visualization & Insights).</p>
+                </div>
+
+                <div class="p-6 border border-gray-700 rounded-lg hover:bg-aiBlue-800 transition duration-300">
+                    <div class="w-12 h-12 bg-blue-900/50 rounded flex items-center justify-center text-blue-400 mb-4">
+                        <i class="fa-solid fa-code text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Lập Trình Web Tích Hợp AI</h3>
+                    <p class="text-gray-400">Thiết kế website hiện đại tích hợp các tính năng thông minh như Chatbot, Gợi ý sản phẩm tự động.</p>
+                </div>
+
+                <div class="p-6 border border-gray-700 rounded-lg hover:bg-aiBlue-800 transition duration-300">
+                    <div class="w-12 h-12 bg-blue-900/50 rounded flex items-center justify-center text-blue-400 mb-4">
+                        <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Gia sư Lập trình</h3>
+                    <p class="text-gray-400">Hướng dẫn cơ bản về Python, Cấu trúc dữ liệu và giải thuật cho người mới bắt đầu.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. BLOG SECTION -->
+        <section id="blog" class="section-content">
+            <h2 class="text-4xl font-bold text-aiSilver-100 mb-10 flex items-center justify-center">
+                <span class="text-blue-400 mr-2">04.</span> Blog & Tin Tức
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Blog Item 1 -->
+                <article class="bg-aiBlue-800 rounded-lg overflow-hidden shadow-lg border border-gray-700 hover:border-blue-400 transition">
+                    <div class="h-48 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <i class="fa-solid fa-network-wired text-5xl text-gray-500"></i>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-xs font-mono text-blue-400">01 Tháng 11, 2025</span>
+                        <h3 class="text-lg font-bold text-white mt-2 mb-2 hover:text-blue-400 cursor-pointer">Tương lai của Generative AI</h3>
+                        <p class="text-gray-400 text-sm line-clamp-3">
+                            Generative AI đang thay đổi cách chúng ta sáng tạo nội dung, hình ảnh và code như thế nào? Cùng tìm hiểu về các xu hướng mới nhất.
+                        </p>
+                        <a href="#" class="inline-block mt-4 text-sm text-blue-400 hover:underline">Đọc thêm <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    </div>
+                </article>
+
+                <!-- Blog Item 2 -->
+                <article class="bg-aiBlue-800 rounded-lg overflow-hidden shadow-lg border border-gray-700 hover:border-blue-400 transition">
+                    <div class="h-48 bg-gradient-to-br from-blue-900 to-gray-900 flex items-center justify-center">
+                        <i class="fa-brands fa-python text-5xl text-gray-500"></i>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-xs font-mono text-blue-400">20 Tháng 10, 2025</span>
+                        <h3 class="text-lg font-bold text-white mt-2 mb-2 hover:text-blue-400 cursor-pointer">Lộ trình học Python cho AI</h3>
+                        <p class="text-gray-400 text-sm line-clamp-3">
+                            Bắt đầu từ đâu nếu bạn muốn trở thành kỹ sư AI? Bài viết này tổng hợp các thư viện Python quan trọng nhất cần nắm vững.
+                        </p>
+                        <a href="#" class="inline-block mt-4 text-sm text-blue-400 hover:underline">Đọc thêm <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    </div>
+                </article>
+
+                <!-- Blog Item 3 -->
+                <article class="bg-aiBlue-800 rounded-lg overflow-hidden shadow-lg border border-gray-700 hover:border-blue-400 transition">
+                    <div class="h-48 bg-gradient-to-br from-gray-800 to-black flex items-center justify-center">
+                        <i class="fa-solid fa-shield-halved text-5xl text-gray-500"></i>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-xs font-mono text-blue-400">15 Tháng 10, 2025</span>
+                        <h3 class="text-lg font-bold text-white mt-2 mb-2 hover:text-blue-400 cursor-pointer">Đạo đức trong AI</h3>
+                        <p class="text-gray-400 text-sm line-clamp-3">
+                            Khi AI ngày càng thông minh, vấn đề đạo đức và quyền riêng tư dữ liệu trở nên cấp thiết hơn bao giờ hết.
+                        </p>
+                        <a href="#" class="inline-block mt-4 text-sm text-blue-400 hover:underline">Đọc thêm <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-aiBlue-900 text-center py-8 border-t border-gray-800 mt-10">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="text-gray-400 hover:text-blue-400 transition text-2xl"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="text-gray-400 hover:text-blue-400 transition text-2xl"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="text-gray-400 hover:text-blue-400 transition text-2xl"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="text-gray-400 hover:text-blue-400 transition text-2xl"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            <p class="text-aiSilver-500 text-sm mb-2">Designed & Built by <span class="text-blue-400">Thái Hoàng Bảo (pk04482)</span></p>
+            <p class="text-gray-600 text-xs">© 2025 AI Student Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // 1. Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // 2. Navigation Logic (Single Page Application feel)
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach(sec => {
+                sec.classList.remove('active');
+                setTimeout(() => {
+                    if(!sec.classList.contains('active')) sec.style.display = 'none';
+                }, 500); // Wait for fade out
+            });
+
+            // Show target section
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.style.display = 'block';
+                // Small delay to allow display:block to apply before adding opacity class
+                setTimeout(() => {
+                    target.classList.add('active');
+                }, 50);
+            }
+
+            // Close mobile menu if open
+            if (!menu.classList.contains('hidden')) {
+                menu.classList.add('hidden');
+            }
+            
+            // Scroll to top nicely
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Helper for mobile nav links
+        function mobileNavClick(sectionId) {
+            showSection(sectionId);
+        }
+
+        // 3. Typing Effect
+        const textElement = document.getElementById('typing-text');
+        const phrases = ["Sinh viên Lập trình AI", "Data Scientist tương lai", "Web Developer"];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 100;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 50; 
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 100;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Pause at end
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500; // Pause before next phrase
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        // Start typing on load
+        document.addEventListener('DOMContentLoaded', type);
+
+    </script>
+</body>
+</html>
