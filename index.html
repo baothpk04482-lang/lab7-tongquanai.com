@@ -196,17 +196,17 @@
                 </div>
             </div>
 
-            <!-- Desktop Menu - Tăng size chữ -->
+            <!-- Desktop Menu - Tăng size chữ - Thêm event.preventDefault() -->
             <nav class="hidden md:flex space-x-10 text-base">
-                <a href="#home" onclick="showSection('home')" class="text-gray-300 hover:text-aiNeon transition font-medium group relative px-2 py-1 font-bold">
+                <a href="#home" onclick="event.preventDefault(); showSection('home')" class="text-gray-300 hover:text-aiNeon transition font-medium group relative px-2 py-1 font-bold">
                     <span class="text-aiNeon opacity-0 group-hover:opacity-100 transition-opacity absolute -left-3">&gt;</span>
                     ~/Trang_Chủ
                 </a>
-                <a href="#about" onclick="showSection('about')" class="text-gray-300 hover:text-aiNeon transition font-medium group relative px-2 py-1 font-bold">
+                <a href="#about" onclick="event.preventDefault(); showSection('about')" class="text-gray-300 hover:text-aiNeon transition font-medium group relative px-2 py-1 font-bold">
                     <span class="text-aiNeon opacity-0 group-hover:opacity-100 transition-opacity absolute -left-3">&gt;</span>
                     ./Giới_Thiệu
                 </a>
-                <a href="#major" onclick="showSection('major')" class="text-gray-300 hover:text-aiNeon transition font-medium group relative px-2 py-1 font-bold">
+                <a href="#major" onclick="event.preventDefault(); showSection('major')" class="text-gray-300 hover:text-aiNeon transition font-medium group relative px-2 py-1 font-bold">
                     <span class="text-aiNeon opacity-0 group-hover:opacity-100 transition-opacity absolute -left-3">&gt;</span>
                     ./Ngành_Học
                 </a>
@@ -218,11 +218,11 @@
             </button>
         </div>
 
-        <!-- Mobile Menu Dropdown -->
+        <!-- Mobile Menu Dropdown - Thêm event.preventDefault() -->
         <div id="mobile-menu" class="hidden md:hidden bg-aiBlue-900/95 border-b border-aiNeon absolute w-full left-0 font-mono backdrop-blur-md">
-            <a href="#home" onclick="mobileNavClick('home')" class="block py-4 px-6 text-lg text-white hover:bg-aiBlue-800 hover:text-aiNeon border-l-4 border-transparent hover:border-aiNeon">&gt; Trang_Chủ</a>
-            <a href="#about" onclick="mobileNavClick('about')" class="block py-4 px-6 text-lg text-white hover:bg-aiBlue-800 hover:text-aiNeon border-l-4 border-transparent hover:border-aiNeon">&gt; Giới_Thiệu</a>
-            <a href="#major" onclick="mobileNavClick('major')" class="block py-4 px-6 text-lg text-white hover:bg-aiBlue-800 hover:text-aiNeon border-l-4 border-transparent hover:border-aiNeon">&gt; Ngành_Học</a>
+            <a href="#home" onclick="event.preventDefault(); mobileNavClick('home')" class="block py-4 px-6 text-lg text-white hover:bg-aiBlue-800 hover:text-aiNeon border-l-4 border-transparent hover:border-aiNeon">&gt; Trang_Chủ</a>
+            <a href="#about" onclick="event.preventDefault(); mobileNavClick('about')" class="block py-4 px-6 text-lg text-white hover:bg-aiBlue-800 hover:text-aiNeon border-l-4 border-transparent hover:border-aiNeon">&gt; Giới_Thiệu</a>
+            <a href="#major" onclick="event.preventDefault(); mobileNavClick('major')" class="block py-4 px-6 text-lg text-white hover:bg-aiBlue-800 hover:text-aiNeon border-l-4 border-transparent hover:border-aiNeon">&gt; Ngành_Học</a>
         </div>
     </header>
 
